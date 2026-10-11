@@ -124,6 +124,34 @@ Example cron schedule used in the lab:
 
 The automated flow was verified by confirming the Splunk lookup file timestamp changed after a scheduled cron execution without a manual script run.
 
+## Evidence and Validation
+
+The screenshots below document the working lab pipeline.
+
+### 1. OpenCTI CSV threat feed
+
+The OpenCTI `opencti-domains` feed exports Domain Name entities through a seven-day rolling CSV feed.
+
+![OpenCTI CSV feed configuration](screenshots/01-opencti-csv-feed.png)
+
+### 2. Splunk lookup ingestion
+
+The `inputlookup` query returns domain values from the synchronized CSV file.
+
+![Splunk inputlookup results](screenshots/02-splunk-inputlookup.png)
+
+### 3. IOC enrichment validation
+
+A **simulated test event** containing `gitprogram.com` successfully matches the OpenCTI lookup. This validates lookup matching; it does **not** represent a confirmed real-world network detection.
+
+![Simulated domain IOC lookup match](screenshots/03-splunk-ioc-match.png)
+
+### 4. Automated synchronization proof
+
+The cron log shows scheduled execution at 15:30 on October 11, and the Splunk lookup file has a corresponding 15:30 modification timestamp. Together, these provide evidence of a successful scheduled refresh.
+
+![Cron execution and refreshed Splunk lookup timestamp](screenshots/04-automated-sync-proof.png)
+
 ## SOC Use Case
 
 A threat-intelligence match is an investigation pivot, not proof of compromise.
