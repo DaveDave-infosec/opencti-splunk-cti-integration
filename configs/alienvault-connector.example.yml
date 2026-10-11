@@ -1,0 +1,26 @@
+# Example AlienVault OTX connector settings
+# DO NOT store real API keys or OpenCTI tokens in a public repository.
+
+connector:
+  name: AlienVault
+  type: EXTERNAL_IMPORT
+  log_level: info
+
+opencti:
+  url: http://opencti:8080
+  token: "<OPENCTI_API_TOKEN>"
+
+alienvault:
+  api_key: "<ALIENVAULT_OTX_API_KEY>"
+  pulse_start_timestamp: "2026-10-01T00:00:00"
+  create_observables: true
+  create_indicators: true
+  enable_relationships: true
+  report_type: threat-report
+  guess_malware: false
+
+# Notes:
+# - Use the Docker service name (for example http://opencti:8080) when the
+#   connector runs inside the same Docker network.
+# - Keep the historical import window small enough for the lab's resources.
+# - Pin connector image versions in a production-quality deployment.
